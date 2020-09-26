@@ -4,7 +4,7 @@ OccurrenceThinner is a Java program that aims to reduce geographical sampling bi
 
 Note that while distance-based thinning can improve models in some cases, this may not always be the case. In fact, by applying this procedure you may be throwing away useful data when regions of dense sampling coincide with steep ecological gradients over short geographic distances. This will of course depend on your specific dataset.
 
-![OccurrenceThinner.jpg](thresholds_illustration.jpg)
+![OccurrenceThinner.jpg](OccurrenceThinner.jpg)
 
 ### User guide
 
@@ -14,9 +14,9 @@ You need two input files to run the program: a file with input coordinates and a
 
 The input coordinates should be in csv (comma-separated values) format. This is a file with species' geographic coordinates just like you use for Maxent runs. The first line (column headers) must clearly indicate "latitude" and "longitude". OccurrenceThinner assumes that all the occurrences in the file are from the same species. If you have multiple species, make separate csv files and run OccurrenceThinner separately for every species.
 
-Put your input files and the OccurrenceThinner.jar file in the same folder. Then open the terminal window and navigate to that folder using the cd command (click for more info). Type `java -jar occurrenceThinner104.jar` and press Enter to run the program. This will show the command-line parameters that you need to specify for your run (also listed below).
+Put your input files and the OccurrenceThinner.jar file in the same folder. Then open the terminal window and navigate to that folder using the cd command (click for more info). Type `java -jar OccurrenceThinner104.jar` and press Enter to run the program. This will show the command-line parameters that you need to specify for your run (also listed below).
 
-Now add the necessary flags to run the program on your data. To run the parameters with default parameter values, simply specify the input coordinates and kernel density raster. Suppose your file with occurrence records is called occurrences.csv and your kernel density raster file is kerneldensity.asc, then you need to type `java -jar occurrenceThinner104.jar -i occurrences.csv -r kerneldensity.asc` and press Enter. You should avoid having spaces in your filenames. If you do, replace them with underscores. If you wish to use non-default parameter settings, also specify any of the optional parameters listed below.
+Now add the necessary flags to run the program on your data. To run the parameters with default parameter values, simply specify the input coordinates and kernel density raster. Suppose your file with occurrence records is called occurrences.csv and your kernel density raster file is kerneldensity.asc, then you need to type `java -jar OccurrenceThinner104.jar -i occurrences.csv -r kerneldensity.asc` and press Enter. You should avoid having spaces in your filenames. If you do, replace them with underscores. If you wish to use non-default parameter settings, also specify any of the optional parameters listed below.
 
 The program will filter occurrence records based on the kernel density at the coordinates of the occurrence records, omitting more occurrence records from densely sampled regions. To accomplish this, the kernel density map is first rescaled between 0 and 1. Then, the program will run through all occurrence records and decide whether or not to retain them one by one. Whether the record is retained is decided with a random draw. That is, a random draw is made between t1 and t2, which are values that can be set with the -t1 and -t2 flags. If the random draw exceeds the kernel density at the pixel in which the occurrence record is situated, the occurrence record will be kept. If it is smaller, it will be removed. Thus, by setting t1 and t2 you can manipulate the amount of thinning that is done and hence the number of occurrence records that is retained.
 
